@@ -200,6 +200,7 @@ def post_board():
 
         # Make the move on the board (optional)
         board.push(result.move)
+        print(board)
 
         return "Success"
 

@@ -45,105 +45,194 @@ struct CreatePieces {
     
     
     // opp = whether opponent or user piece
-    static func generatePawn(opp: Bool) -> ModelEntity {
-        let pawnColor = opp ? pawn.adjustedBrightness(by: 0.4) : pawn
-        let metallic = opp ? false : true
-        let ret = ModelEntity(
-                    mesh: .generateSphere(radius: 0.025),
-                    materials: [SimpleMaterial(color: pawnColor, isMetallic: metallic)]
-                )
-        ret.components.set(GroundingShadowComponent(castsShadow: true))
+    static func generatePawn(opp: Bool) -> Entity? {
+//        let pawnColor = opp ? pawn.adjustedBrightness(by: 0.4) : pawn
+//        let metallic = opp ? false : true
+//        let ret = ModelEntity(
+//                    mesh: .generateSphere(radius: 0.025),
+//                    materials: [SimpleMaterial(color: pawnColor, isMetallic: metallic)]
+//                )
         
-        if opp {
-            ret.name = "Opponent_Pawn"
-        } else {
-            ret.name = "Pawn"
+
+        do {
+            if opp {
+                let ret = try Entity.load(named: "Pawn_black", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            } else {
+                let ret = try Entity.load(named: "Pawn_white", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            }
+        } catch {
+            print("error loading pawn")
         }
-        return ret
+        
+        return nil
     }
     
-    static func generateRook(opp: Bool) -> ModelEntity {
-        let rookColor = opp ? rook.adjustedBrightness(by: 0.4) : rook
-        let metallic = opp ? false : true
-        let ret = ModelEntity(
-                    mesh: .generateSphere(radius: 0.025),
-                    materials: [SimpleMaterial(color: rookColor, isMetallic: metallic)]
-                )
-        ret.components.set(GroundingShadowComponent(castsShadow: true))
+    static func generateRook(opp: Bool) -> Entity? {
+//        let rookColor = opp ? rook.adjustedBrightness(by: 0.4) : rook
+//        let metallic = opp ? false : true
+//        let ret = ModelEntity(
+//                    mesh: .generateSphere(radius: 0.025),
+//                    materials: [SimpleMaterial(color: rookColor, isMetallic: metallic)]
+//                )
+//        ret.components.set(GroundingShadowComponent(castsShadow: true))
+//        
+//        if opp {
+//            ret.name = "Opponent_Rook"
+//        } else {
+//            ret.name = "Rook"
+//        }
+//        return ret
         
-        if opp {
-            ret.name = "Opponent_Rook"
-        } else {
-            ret.name = "Rook"
+        do {
+            if opp {
+                let ret = try Entity.load(named: "Rook_black", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            } else {
+                let ret = try Entity.load(named: "Rook_white", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            }
+        } catch {
+            print("error loading rook")
         }
-        return ret
+        
+        return nil
     }
     
-    static func generateBishop(opp: Bool) -> ModelEntity {
-        let bishopColor = opp ? bishop.adjustedBrightness(by: 0.4) : bishop
-        let metallic = opp ? false : true
-        let ret = ModelEntity(
-                    mesh: .generateSphere(radius: 0.025),
-                    materials: [SimpleMaterial(color: bishopColor, isMetallic: metallic)]
-                )
-        ret.components.set(GroundingShadowComponent(castsShadow: true))
+    static func generateBishop(opp: Bool) -> Entity? {
+//        let bishopColor = opp ? bishop.adjustedBrightness(by: 0.4) : bishop
+//        let metallic = opp ? false : true
+//        let ret = ModelEntity(
+//                    mesh: .generateSphere(radius: 0.025),
+//                    materials: [SimpleMaterial(color: bishopColor, isMetallic: metallic)]
+//                )
+//        ret.components.set(GroundingShadowComponent(castsShadow: true))
+//        
+//        if opp {
+//            ret.name = "Opponent_Bishop"
+//        } else {
+//            ret.name = "Bishop"
+//        }
+//        return ret
         
-        if opp {
-            ret.name = "Opponent_Bishop"
-        } else {
-            ret.name = "Bishop"
+        do {
+            if opp {
+                let ret = try Entity.load(named: "Bishop_black", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            } else {
+                let ret = try Entity.load(named: "Bishop_white", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            }
+        } catch {
+            print("error loading bishop")
         }
-        return ret
+        
+        return nil
     }
     
-    static func generateKnight(opp: Bool) -> ModelEntity {
-        let knightColor = opp ? knight.adjustedBrightness(by: 0.4) : knight
-        let metallic = opp ? false : true
-        let ret = ModelEntity(
-                    mesh: .generateSphere(radius: 0.025),
-                    materials: [SimpleMaterial(color: knightColor, isMetallic: metallic)]
-                )
-        ret.components.set(GroundingShadowComponent(castsShadow: true))
+    static func generateKnight(opp: Bool) -> Entity? {
+//        let knightColor = opp ? knight.adjustedBrightness(by: 0.4) : knight
+//        let metallic = opp ? false : true
+//        let ret = ModelEntity(
+//                    mesh: .generateSphere(radius: 0.025),
+//                    materials: [SimpleMaterial(color: knightColor, isMetallic: metallic)]
+//                )
+//        ret.components.set(GroundingShadowComponent(castsShadow: true))
+//        
+//        if opp {
+//            ret.name = "Opponent_Knight"
+//        } else {
+//            ret.name = "Knight"
+//        }
+//        return ret
         
-        if opp {
-            ret.name = "Opponent_Knight"
-        } else {
-            ret.name = "Knight"
+        do {
+            if opp {
+                let ret = try Entity.load(named: "Knight_black", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            } else {
+                let ret = try Entity.load(named: "Knight_white", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            }
+        } catch {
+            print("error loading knight")
         }
-        return ret
+        
+        return nil
     }
     
-    static func generateKing(opp: Bool) -> ModelEntity {
-        let kingColor = opp ? king.adjustedBrightness(by: 0.4) : king
-        let metallic = opp ? false : true
-        let ret = ModelEntity(
-                    mesh: .generateSphere(radius: 0.025),
-                    materials: [SimpleMaterial(color: kingColor, isMetallic: metallic)]
-                )
-        ret.components.set(GroundingShadowComponent(castsShadow: true))
+    static func generateKing(opp: Bool) -> Entity? {
+//        let kingColor = opp ? king.adjustedBrightness(by: 0.4) : king
+//        let metallic = opp ? false : true
+//        let ret = ModelEntity(
+//                    mesh: .generateSphere(radius: 0.025),
+//                    materials: [SimpleMaterial(color: kingColor, isMetallic: metallic)]
+//                )
+//        ret.components.set(GroundingShadowComponent(castsShadow: true))
+//        
+//        if opp {
+//            ret.name = "Opponent_King"
+//        } else {
+//            ret.name = "King"
+//        }
+//        return ret
         
-        if opp {
-            ret.name = "Opponent_King"
-        } else {
-            ret.name = "King"
+        do {
+            if opp {
+                let ret = try Entity.load(named: "King_black", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            } else {
+                let ret = try Entity.load(named: "King_white", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            }
+        } catch {
+            print("error loading pawn")
         }
-        return ret
+        
+        return nil
     }
     
-    static func generateQueen(opp: Bool) -> ModelEntity {
-        let queenColor = opp ? queen.adjustedBrightness(by: 0.4) : queen
-        let metallic = opp ? false : true
-        let ret = ModelEntity(
-                    mesh: .generateSphere(radius: 0.025),
-                    materials: [SimpleMaterial(color: queenColor, isMetallic: metallic)]
-                )
-        ret.components.set(GroundingShadowComponent(castsShadow: true))
+    static func generateQueen(opp: Bool) -> Entity? {
+//        let queenColor = opp ? queen.adjustedBrightness(by: 0.4) : queen
+//        let metallic = opp ? false : true
+//        let ret = ModelEntity(
+//                    mesh: .generateSphere(radius: 0.025),
+//                    materials: [SimpleMaterial(color: queenColor, isMetallic: metallic)]
+//                )
+//        ret.components.set(GroundingShadowComponent(castsShadow: true))
+//        
+//        if opp {
+//            ret.name = "Opponent_Queen"
+//        } else {
+//            ret.name = "Queen"
+//        }
+//        return ret
         
-        if opp {
-            ret.name = "Opponent_Queen"
-        } else {
-            ret.name = "Queen"
+        do {
+            if opp {
+                let ret = try Entity.load(named: "Queen_black", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            } else {
+                let ret = try Entity.load(named: "Queen_white", in: RealityKitContent.realityKitContentBundle)
+                ret.components.set(GroundingShadowComponent(castsShadow: true))
+                return ret
+            }
+        } catch {
+            print("error loading queen")
         }
-        return ret
+        
+        return nil
     }
 }

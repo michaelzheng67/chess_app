@@ -25,6 +25,12 @@ struct ChessMoves {
             return_row = row
         }
         
+        print("row = " + String(row))
+        print("col = " + String(col))
+        print("return_row = " + String(return_row))
+        print("return_col = " + String(return_col))
+        
+        
         return (return_row, return_col)
         
     }
@@ -280,6 +286,10 @@ struct ChessMoves {
                 // if square has something on it, first add empty spots leading up to it then add the piece
                 else if squares[row][col].children.count > 0 {
                     let piece_name = squares[row][col].children[0].name
+                    print(squares[row][col].children)
+//                    print(squares[row][col].children[0])
+//                    print(squares[row][col].children[0].children[0])
+//                    print(squares[row][col].children[0].children[0].children[0])
                     if empties > 0 {
                         ret += String(empties)
                         empties = 0

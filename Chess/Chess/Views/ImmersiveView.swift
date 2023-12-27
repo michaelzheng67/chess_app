@@ -13,6 +13,7 @@ struct ImmersiveView: View {
     @State private var squares: [[ModelEntity]] = [[]] // global state of chessboard squares
     @State private var highlighted: [(square: ModelEntity, row: Int, col: Int)] = [] // keep track of which square is being highlighted while moving piece
     @State private var square_size: Float = 0.2 // size of chessboard square
+    
     @Environment(DataModel.self) var dataModel
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
@@ -42,8 +43,10 @@ struct ImmersiveView: View {
             // fill up opponent pieces
             for row in 1..<2 {
                 for col in 0..<8 {
-                    let modelCopy = CreatePieces.generatePawn(opp: true)
-                    placeEntityOnSquare(entity: modelCopy, row: row, column: col)
+                    guard let modelCopy = CreatePieces.generatePawn(opp: true) else {
+                        return
+                    }
+                    placeMovedEntityOnSquare(entity: modelCopy, row: row, column: col)
                     modelCopy.position = [0, 0.025, 0]
                     modelCopy.generateCollisionShapes(recursive: false)
                     modelCopy.components.set(GroundingShadowComponent(castsShadow: true))
@@ -55,65 +58,81 @@ struct ImmersiveView: View {
                 }
             }
             
-            let Opp_Rook1 = CreatePieces.generateRook(opp: true)
+            guard let Opp_Rook1 = CreatePieces.generateRook(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_Rook1, row: 0, column: 0)
+            placeMovedEntityOnSquare(entity: Opp_Rook1, row: 0, column: 0)
             Opp_Rook1.position = [0, 0.025, 0]
             Opp_Rook1.generateCollisionShapes(recursive: false)
             Opp_Rook1.components.set(GroundingShadowComponent(castsShadow: true))
             Opp_Rook1.name = "Opponent_Rook"
             
-            let Opp_Rook2 = CreatePieces.generateRook(opp: true)
+            guard let Opp_Rook2 = CreatePieces.generateRook(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_Rook2, row: 0, column: 7)
+            placeMovedEntityOnSquare(entity: Opp_Rook2, row: 0, column: 7)
             Opp_Rook2.position = [0, 0.025, 0]
             Opp_Rook2.generateCollisionShapes(recursive: false)
             Opp_Rook2.components.set(GroundingShadowComponent(castsShadow: true))
             Opp_Rook2.name = "Opponent_Rook"
             
-            let Opp_Bishop1 = CreatePieces.generateBishop(opp: true)
+            guard let Opp_Bishop1 = CreatePieces.generateBishop(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_Bishop1, row: 0, column: 2)
+            placeMovedEntityOnSquare(entity: Opp_Bishop1, row: 0, column: 2)
             Opp_Bishop1.position = [0, 0.025, 0]
             Opp_Bishop1.generateCollisionShapes(recursive: false)
             Opp_Bishop1.components.set(GroundingShadowComponent(castsShadow: true))
             Opp_Bishop1.name = "Opponent_Bishop"
             
-            let Opp_Bishop2 = CreatePieces.generateBishop(opp: true)
+            guard let Opp_Bishop2 = CreatePieces.generateBishop(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_Bishop2, row: 0, column: 5)
+            placeMovedEntityOnSquare(entity: Opp_Bishop2, row: 0, column: 5)
             Opp_Bishop2.position = [0, 0.025, 0]
             Opp_Bishop2.generateCollisionShapes(recursive: false)
             Opp_Bishop2.components.set(GroundingShadowComponent(castsShadow: true))
             Opp_Bishop2.name = "Opponent_Bishop"
             
-            let Opp_Knight1 = CreatePieces.generateKnight(opp: true)
+            guard let Opp_Knight1 = CreatePieces.generateKnight(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_Knight1, row: 0, column: 1)
+            placeMovedEntityOnSquare(entity: Opp_Knight1, row: 0, column: 1)
             Opp_Knight1.position = [0, 0.025, 0]
             Opp_Knight1.generateCollisionShapes(recursive: false)
             Opp_Knight1.components.set(GroundingShadowComponent(castsShadow: true))
             Opp_Knight1.name = "Opponent_Knight"
             
-            let Opp_Knight2 = CreatePieces.generateKnight(opp: true)
+            guard let Opp_Knight2 = CreatePieces.generateKnight(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_Knight2, row: 0, column: 6)
+            placeMovedEntityOnSquare(entity: Opp_Knight2, row: 0, column: 6)
             Opp_Knight2.position = [0, 0.025, 0]
             Opp_Knight2.generateCollisionShapes(recursive: false)
             Opp_Knight2.components.set(GroundingShadowComponent(castsShadow: true))
             Opp_Knight2.name = "Opponent_Knight"
             
-            let Opp_King = CreatePieces.generateKing(opp: true)
+            guard let Opp_King = CreatePieces.generateKing(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_King, row: 0, column: 4)
+            placeMovedEntityOnSquare(entity: Opp_King, row: 0, column: 4)
             Opp_King.position = [0, 0.025, 0]
             Opp_King.generateCollisionShapes(recursive: false)
             Opp_King.components.set(GroundingShadowComponent(castsShadow: true))
             Opp_King.name = "Opponent_King"
             
-            let Opp_Queen = CreatePieces.generateQueen(opp: true)
+            guard let Opp_Queen = CreatePieces.generateQueen(opp: true) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Opp_Queen, row: 0, column: 3)
+            placeMovedEntityOnSquare(entity: Opp_Queen, row: 0, column: 3)
             Opp_Queen.position = [0, 0.025, 0]
             Opp_Queen.generateCollisionShapes(recursive: false)
             Opp_Queen.components.set(GroundingShadowComponent(castsShadow: true))
@@ -122,112 +141,105 @@ struct ImmersiveView: View {
             // fill up player pieces
             for row in 6..<7 {
                 for col in 0..<8 {
-                    let modelCopy = ModelEntity(
-                                mesh: .generateSphere(radius: 0.025),
-                                materials: [SimpleMaterial(color: .gray, isMetallic: true)]
-                            )
-
-                    placeEntityOnSquare(entity: modelCopy, row: row, column: col)
+                    guard let modelCopy = CreatePieces.generatePawn(opp: false) else {
+                        return
+                    }
+                    
+                    print(modelCopy.position)
+                    placeMovedEntityOnSquare(entity: modelCopy, row: row, column: col)
                     modelCopy.position = [0, 0.025, 0]
-                    modelCopy.generateCollisionShapes(recursive: false)
+                    modelCopy.generateCollisionShapes(recursive: true)
                     modelCopy.components.set(GroundingShadowComponent(castsShadow: true))
-                    modelCopy.components.set(InputTargetComponent())
+                    modelCopy.children.first!.children.first!.components.set(InputTargetComponent())
+//                    modelCopy.components.set(InputTargetComponent())
                     modelCopy.name = "Pawn"
                 }
             }
             
-            let Rook1 = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .white, isMetallic: true)]
-                    )
+            guard let Rook1 = CreatePieces.generateRook(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Rook1, row: 7, column: 0)
+            placeMovedEntityOnSquare(entity: Rook1, row: 7, column: 0)
             Rook1.position = [0, 0.025, 0]
-            Rook1.generateCollisionShapes(recursive: false)
+            Rook1.generateCollisionShapes(recursive: true)
             Rook1.components.set(GroundingShadowComponent(castsShadow: true))
             Rook1.components.set(InputTargetComponent())
             Rook1.name = "Rook"
             
-            let Rook2 = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .white, isMetallic: true)]
-                    )
+            guard let Rook2 = CreatePieces.generateRook(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Rook2, row: 7, column: 7)
+            placeMovedEntityOnSquare(entity: Rook2, row: 7, column: 7)
             Rook2.position = [0, 0.025, 0]
-            Rook2.generateCollisionShapes(recursive: false)
+            Rook2.generateCollisionShapes(recursive: true)
             Rook2.components.set(GroundingShadowComponent(castsShadow: true))
             Rook2.components.set(InputTargetComponent())
             Rook2.name = "Rook"
             
-            let Bishop1 = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .blue, isMetallic: true)]
-                    )
+            guard let Bishop1 = CreatePieces.generateBishop(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Bishop1, row: 7, column: 2)
+            placeMovedEntityOnSquare(entity: Bishop1, row: 7, column: 2)
             Bishop1.position = [0, 0.025, 0]
-            Bishop1.generateCollisionShapes(recursive: false)
+            Bishop1.generateCollisionShapes(recursive: true)
             Bishop1.components.set(GroundingShadowComponent(castsShadow: true))
             Bishop1.components.set(InputTargetComponent())
             Bishop1.name = "Bishop"
             
-            let Bishop2 = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .blue, isMetallic: true)]
-                    )
+            guard let Bishop2 = CreatePieces.generateBishop(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Bishop2, row: 7, column: 5)
+            placeMovedEntityOnSquare(entity: Bishop2, row: 7, column: 5)
             Bishop2.position = [0, 0.025, 0]
-            Bishop2.generateCollisionShapes(recursive: false)
+            Bishop2.generateCollisionShapes(recursive: true)
             Bishop2.components.set(GroundingShadowComponent(castsShadow: true))
             Bishop2.components.set(InputTargetComponent())
             Bishop2.name = "Bishop"
             
-            let Knight1 = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .green, isMetallic: true)]
-                    )
+            guard let Knight1 = CreatePieces.generateKnight(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Knight1, row: 7, column: 1)
+            placeMovedEntityOnSquare(entity: Knight1, row: 7, column: 1)
             Knight1.position = [0, 0.025, 0]
-            Knight1.generateCollisionShapes(recursive: false)
+            Knight1.generateCollisionShapes(recursive: true)
             Knight1.components.set(GroundingShadowComponent(castsShadow: true))
             Knight1.components.set(InputTargetComponent())
             Knight1.name = "Knight"
             
-            let Knight2 = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .green, isMetallic: true)]
-                    )
+            guard let Knight2 = CreatePieces.generateKnight(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Knight2, row: 7, column: 6)
+            placeMovedEntityOnSquare(entity: Knight2, row: 7, column: 6)
             Knight2.position = [0, 0.025, 0]
-            Knight2.generateCollisionShapes(recursive: false)
+            Knight2.generateCollisionShapes(recursive: true)
             Knight2.components.set(GroundingShadowComponent(castsShadow: true))
             Knight2.components.set(InputTargetComponent())
             Knight2.name = "Knight"
             
-            let King = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .systemYellow, isMetallic: true)]
-                    )
+            guard let King = CreatePieces.generateKing(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: King, row: 7, column: 4)
+            placeMovedEntityOnSquare(entity: King, row: 7, column: 4)
             King.position = [0, 0.025, 0]
-            King.generateCollisionShapes(recursive: false)
+            King.generateCollisionShapes(recursive: true)
             King.components.set(GroundingShadowComponent(castsShadow: true))
             King.components.set(InputTargetComponent())
             King.name = "King"
             
-            let Queen = ModelEntity(
-                        mesh: .generateSphere(radius: 0.025),
-                        materials: [SimpleMaterial(color: .systemPink, isMetallic: true)]
-                    )
+            guard let Queen = CreatePieces.generateQueen(opp: false) else {
+                return
+            }
 
-            placeEntityOnSquare(entity: Queen, row: 7, column: 3)
+            placeMovedEntityOnSquare(entity: Queen, row: 7, column: 3)
             Queen.position = [0, 0.025, 0]
-            Queen.generateCollisionShapes(recursive: false)
+            Queen.generateCollisionShapes(recursive: true)
             Queen.components.set(GroundingShadowComponent(castsShadow: true))
             Queen.components.set(InputTargetComponent())
             Queen.name = "Queen"
@@ -241,8 +253,8 @@ struct ImmersiveView: View {
                     value.entity.components[PhysicsBodyComponent.self]?.mode = .kinematic
                     
                     // get starting coordinates
-                    var start_x = value.entity.parent!.position[0]
-                    var start_z = value.entity.parent!.position[2]
+                    var start_x = value.entity.parent!.parent!.parent!.position[0] // nested like square -> piece -> root -> piece entity so need to go up 3x to get square
+                    var start_z = value.entity.parent!.parent!.parent!.position[2]
                     
                     // to fix rounding errors
                     if start_z <= 0.4 && start_z >= 0.2 {
@@ -254,6 +266,10 @@ struct ImmersiveView: View {
                     if start_x <= 0.2 && start_x > 0.0 {
                         start_x = 0.2
                     }
+                    
+                    print(start_x)
+                    print(start_z)
+                    print(value.entity)
                     
                     let start_row = Int(start_z / self.square_size)
                     let start_col = Int(start_x / self.square_size)
@@ -301,8 +317,9 @@ struct ImmersiveView: View {
                     value.entity.components[PhysicsBodyComponent.self]?.mode = .dynamic
                     
                     // get starting coordinates
-                    var start_x = value.entity.parent!.position[0]
-                    var start_z = value.entity.parent!.position[2]
+                    var start_x = value.entity.parent!.parent!.parent!.position[0]
+                    var start_z = value.entity.parent!.parent!.parent!.position[2]
+                    
                     
                     // to fix rounding errors
                     if start_z <= 0.4 && start_z >= 0.2 {
@@ -318,8 +335,6 @@ struct ImmersiveView: View {
                     let start_row = Int(start_z / self.square_size)
                     let start_col = Int(start_x / self.square_size)
                     
-                    print("START_COL = " + String(start_x))
-                    
                     
                     // if there was a previous square highlighted from moving, we stop highlighting it
                     if !self.highlighted.isEmpty {
@@ -330,7 +345,7 @@ struct ImmersiveView: View {
                     }
                     
                     var (row, col) = (0, 0)
-                    
+
                     if value.entity.name == "Pawn" {
                         (row, col) = ChessMoves.movePawn(row: start_row, col: start_col, move_x:value.entity.position[0], move_z:value.entity.position[2])
                     } else if value.entity.name == "Rook" {
@@ -350,15 +365,42 @@ struct ImmersiveView: View {
                         (row, col) = obstacleDetection(start_row: start_row, start_col: start_col, end_row: row, end_col: col)
                     }
                     captureDetection(row: row, col: col)
-                    placeMovedEntityOnSquare(entity: value.entity, row: row, column: col)
-                    value.entity.position = [0, 0.025, 0]
+                    
+                    
+                    
+//                    print(value.entity.name)
+                    
+                    
                     
                     // send board state to server only if actual move (account for edge case where user picks up piece but doesn't place it somewhere else)
                     if (start_row, start_col) != (row, col) {
+                        value.entity.parent!.parent!.parent!.removeChild(value.entity.parent!.parent!)
+    //                    value.entity.parent!.parent!.removeChild(value.entity.parent!)
+                        
+                        placeMovedEntityOnSquare(entity: value.entity, row: row, column: col)
+                        
                         let representation = ChessMoves.serializeBoard(squares: self.squares)
                         print("posted = " + representation)
                         NetworkUtils.postBoard(board: representation, difficulty: dataModel.botLevel)
                         dataModel.playerTurn = 1
+                    }
+                    
+                    // regardless of whether piece moved or not, have to set to middle of current square
+                    value.entity.position = [0, 0.025, 0]
+                    
+                    // hacky way to make sure that on move, piece is still appearing on top of board
+                    if value.entity.name == "Pawn" {
+                        value.entity.position[1] += 0.12
+                    } else if value.entity.name == "Rook" {
+                        value.entity.position[1] += 0.13
+                    } else if value.entity.name == "Bishop" {
+                        value.entity.position[1] += 0.16
+                    } else if value.entity.name == "Knight" {
+                        value.entity.position[1] += 0.16
+                    } else if value.entity.name == "King" {
+                        value.entity.position[1] += 0.23
+                    } else if value.entity.name == "Queen" {
+                        value.entity.position[1] += 0.20
                     }
                 }
 
@@ -482,81 +524,105 @@ struct ImmersiveView: View {
                 else {
                     switch character {
                     case "K":
-                        let model = CreatePieces.generateKing(opp: false)
+                        guard let model = CreatePieces.generateKing(opp: false) else {
+                            return
+                        }
                         model.name = "King"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
-                        model.generateCollisionShapes(recursive: false)
+                        model.generateCollisionShapes(recursive: true)
                         model.components.set(InputTargetComponent())
                     case "Q":
-                        let model = CreatePieces.generateQueen(opp: false)
+                        guard let model = CreatePieces.generateQueen(opp: false) else {
+                            return
+                        }
                         model.name = "Queen"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
-                        model.generateCollisionShapes(recursive: false)
+                        model.generateCollisionShapes(recursive: true)
                         model.components.set(InputTargetComponent())
                     case "R":
-                        let model = CreatePieces.generateRook(opp: false)
+                        guard let model = CreatePieces.generateRook(opp: false) else {
+                            return
+                        }
                         model.name = "Rook"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
-                        model.generateCollisionShapes(recursive: false)
+                        model.generateCollisionShapes(recursive: true)
                         model.components.set(InputTargetComponent())
                     case "B":
-                        let model = CreatePieces.generateBishop(opp: false)
+                        guard let model = CreatePieces.generateBishop(opp: false) else {
+                            return
+                        }
                         model.name = "Bishop"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
-                        model.generateCollisionShapes(recursive: false)
+                        model.generateCollisionShapes(recursive: true)
                         model.components.set(InputTargetComponent())
                     case "N":
-                        let model = CreatePieces.generateKnight(opp: false)
+                        guard let model = CreatePieces.generateKnight(opp: false) else {
+                            return
+                        }
                         model.name = "Knight"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
-                        model.generateCollisionShapes(recursive: false)
+                        model.generateCollisionShapes(recursive: true)
                         model.components.set(InputTargetComponent())
                     case "P":
-                        let model = CreatePieces.generatePawn(opp: false)
+                        guard let model = CreatePieces.generatePawn(opp: false) else {
+                            return
+                        }
                         model.name = "Pawn"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
-                        model.generateCollisionShapes(recursive: false)
+                        model.generateCollisionShapes(recursive: true)
                         model.components.set(InputTargetComponent())
                     case "k":
-                        let model = CreatePieces.generateKing(opp: true)
+                        guard let model = CreatePieces.generateKing(opp: true) else {
+                            return
+                        }
                         model.name = "Opponent_King"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
                         model.generateCollisionShapes(recursive: false)
                     case "q":
-                        let model = CreatePieces.generateQueen(opp: true)
+                        guard let model = CreatePieces.generateQueen(opp: true) else {
+                            return
+                        }
                         model.name = "Opponent_Queen"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
                         model.generateCollisionShapes(recursive: false)
                     case "r":
-                        let model = CreatePieces.generateRook(opp: true)
+                        guard let model = CreatePieces.generateRook(opp: true) else {
+                            return
+                        }
                         model.name = "Opponent_Rook"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
                         model.generateCollisionShapes(recursive: false)
                     case "b":
-                        let model = CreatePieces.generateBishop(opp: true)
+                        guard let model = CreatePieces.generateBishop(opp: true) else {
+                            return
+                        }
                         model.name = "Opponent_Bishop"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
                         model.generateCollisionShapes(recursive: false)
                     case "n":
-                        let model = CreatePieces.generateKnight(opp: true)
+                        guard let model = CreatePieces.generateKnight(opp: true) else {
+                            return
+                        }
                         model.name = "Opponent_Knight"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
                         model.generateCollisionShapes(recursive: false)
                     case "p":
-                        let model = CreatePieces.generatePawn(opp: true)
+                        guard let model = CreatePieces.generatePawn(opp: true) else {
+                            return
+                        }
                         model.name = "Opponent_Pawn"
-                        placeEntityOnSquare(entity: model, row: i, column: j)
+                        placeMovedEntityOnSquare(entity: model, row: i, column: j)
                         model.position = [0, 0.025, 0]
                         model.generateCollisionShapes(recursive: false)
                     default:
